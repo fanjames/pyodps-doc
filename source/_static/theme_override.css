@@ -1,0 +1,8 @@
+.rst-content p.rubric-h2 {
+    font-size: 150%;
+    margin-top: 0.85em;
+    margin-bottom: 0.85em;
+}
+.rst-content h6.rubric-default {
+    margin-bottom: 12px;
+}

@@ -1,0 +1,287 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014-2018, The Alibaba Group Holding Ltd.
+# This file is distributed under the same license as the PyODPS package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyODPS 0.7.16\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-02 10:13+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: ../../source/platform-d2.rst:5
+msgid "DataWorks 用户使用指南"
+msgstr "Instructions for running MaxCompute in DataWorks"
+
+#: ../../source/platform-d2.rst:9
+msgid "新建工作流节点"
+msgstr "Create flow nodes"
+
+#: ../../source/platform-d2.rst:11
+msgid "在工作流节点中会包含PYODPS节点。新建即可。"
+msgstr ""
+"Flow nodes include the Python on MaxCompute (PyODPS) node. You can create"
+" the PyODPS node."
+
+#: ../../source/platform-d2.rst:16
+msgid ".. image:: _static/d2-node-zh.png"
+msgstr ".. image:: _static/d2-node-en.png"
+
+#: ../../source/platform-d2.rst:18
+msgid "ODPS入口"
+msgstr "Use the ODPS object"
+
+#: ../../source/platform-d2.rst:21
+msgid ""
+"DataWorks 的 PyODPS 节点中，将会包含一个全局的变量 ``odps`` 或者 ``o`` ，即 ODPS 入口。用户不需要手动定义"
+" ODPS 入口。"
+msgstr ""
+"The PyODPS node in DataWorks includes global variable ``odps`` or ``o``, "
+"which is the ODPS object. You do not need to manually define the ODPS "
+"object."
+
+#: ../../source/platform-d2.rst:23
+msgid "print(o.exist_table('pyodps_iris'))"
+msgstr ""
+
+#: ../../source/platform-d2.rst:29
+msgid "执行SQL"
+msgstr "Execute SQL statements"
+
+#: ../../source/platform-d2.rst:31
+msgid "可以参考 :ref:`执行SQL文档 <execute_sql>` 。"
+msgstr "For more information, see :ref:`Execute SQL statements <execute_sql>` ."
+
+#: ../../source/platform-d2.rst:34
+msgid ""
+"Dataworks 上默认没有打开 instance tunnel，即 instance.open_reader 默认走 result "
+"接口（最多一万条）。 打开 instance tunnel，通过 reader.count 能取到记录数，如果要迭代获取全部数据，则需要关闭 "
+"limit 限制。"
+msgstr ""
+"Instance tunnel is not enabled by default on Dataworks, thus 10000 "
+"records can be fetched at most. When instance tunnel is enabled, "
+"``reader.count`` illustrates the number of records, and limitation should"
+" be disabled to fetch all data by iteration."
+
+#: ../../source/platform-d2.rst:37
+msgid "要想全局打开，则"
+msgstr "In order to enable instance tunnel globally, do as the code shown below."
+
+#: ../../source/platform-d2.rst:39
+msgid ""
+"options.tunnel.use_instance_tunnel = True\n"
+"options.tunnel.limit_instance_tunnel = False  # 关闭 limit 读取全部数据\n"
+"\n"
+"with instance.open_reader() as reader:\n"
+"    # 能通过 instance tunnel 读取全部数据"
+msgstr ""
+"options.tunnel.use_instance_tunnel = True\n"
+"options.tunnel.limit_instance_tunnel = False  # disable limitation to "
+"fetch all data\n"
+"\n"
+"with instance.open_reader() as reader:\n"
+"    # you can fetch all data by instance tunnel"
+
+#: ../../source/platform-d2.rst:48
+msgid ""
+"或者通过在 open_reader 上添加 ``tunnel=True``，来仅对这次 open_reader 打开 instance "
+"tunnel； 添加 ``limit=False``，来关闭 limit 限制从而能下载全部数据。"
+msgstr ""
+"Also you can add ``tunnel=True`` to open_reader to enable instance tunnel"
+" for this reader only, and add ``limit=False`` to disable limitation and "
+"fetch all data."
+
+#: ../../source/platform-d2.rst:51
+msgid ""
+"with instance.open_reader(tunnel=True, limit=False) as reader:\n"
+"    # 这次 open_reader 会走 instance tunnel 接口，且能读取全部数据"
+msgstr ""
+"with instance.open_reader(tunnel=True, limit=False) as reader:\n"
+"    # use instance tunnel and fetch all data without limitation"
+
+#: ../../source/platform-d2.rst:58
+msgid "DataFrame"
+msgstr "DataFrame"
+
+#: ../../source/platform-d2.rst:61
+msgid "执行"
+msgstr "Execution"
+
+#: ../../source/platform-d2.rst:63
+msgid ""
+"在 DataWorks 的环境里， :ref:`DataFrame <df>` 的执行需要显式调用 "
+":ref:`立即执行的方法（如execute，head等） <df_delay_execute>` 。"
+msgstr ""
+"To execute :ref:`DataFrame <df>` in DataWorks, you need to explicitly "
+"call :ref:`automatically executed actions such as execute and head "
+"<df_delay_execute>` ."
+
+#: ../../source/platform-d2.rst:65
+msgid ""
+"from odps.df import DataFrame\n"
+"\n"
+"iris = DataFrame(o.get_table('pyodps_iris'))\n"
+"for record in iris[iris.sepal_width < 3].execute():  # 调用立即执行的方法\n"
+"    # 处理每条record"
+msgstr ""
+"from odps.df import DataFrame\n"
+"\n"
+"iris = DataFrame(o.get_table('pyodps_iris'))\n"
+"for record in iris[iris.sepal_width < 3].execute():  # filtering will be "
+"executed immediately with execute() called\n"
+"    # process every record"
+
+#: ../../source/platform-d2.rst:74
+msgid "如果用户想在print的时候调用立即执行，需要打开 ``options.interactive`` 。"
+msgstr ""
+"To call automatically executed actions for print, set "
+"``options.interactive`` to True."
+
+#: ../../source/platform-d2.rst:76
+msgid ""
+"from odps import options\n"
+"from odps.df import DataFrame\n"
+"\n"
+"options.interactive = True  # 在开始打开开关\n"
+"\n"
+"iris = DataFrame(o.get_table('pyodps_iris'))\n"
+"print(iris.sepal_width.sum())  # 这里print的时候会立即执行"
+msgstr ""
+"from odps import options\n"
+"from odps.df import DataFrame\n"
+"\n"
+"options.interactive = True  # configure at the start of code\n"
+"\n"
+"iris = DataFrame(o.get_table('pyodps_iris'))\n"
+"print(iris.sepal_width.sum())  # sum() will be executed immediately "
+"because we use print here"
+
+#: ../../source/platform-d2.rst:88
+msgid "打印详细信息"
+msgstr "Print details"
+
+#: ../../source/platform-d2.rst:90
+msgid ""
+"通过设置 ``options.verbose`` 选项。在 DataWorks 上，默认已经处于打开状态，运行过程会打印 logview "
+"等详细过程。"
+msgstr ""
+"To print details, you need to set ``options.verbose``. By default, this "
+"parameter is set to True in DataWorks. The system prints the logview and "
+"other details during operation."
+
+#: ../../source/platform-d2.rst:94
+msgid "获取调度参数"
+msgstr "Obtain scheduling parameters"
+
+#: ../../source/platform-d2.rst:96
+msgid ""
+"与 DataWorks 中的 SQL 节点不同，为了避免侵入代码，PyODPS 节点 **不会** 在代码中替换 ${param_name} "
+"这样的字符串，而是在执行代码前，在全局变量中增加一个名为 ``args`` 的 dict，调度参数可以在此获取。例如， 在节点基本属性 -> "
+"参数中设置 ``ds=${yyyymmdd}`` ，则可以通过下面的方式在代码中获取此参数"
+msgstr ""
+"Different from SQL nodes in DataWorks, to avoid invading your Python code"
+" which might lead to unpredictable consequences, PyODPS nodes DOES NOT "
+"automatically replace placeholder strings like ${param_name}. Instead, "
+"PyODPS node will create a dict named ``args`` in global variables, which "
+"contains all the scheduling parameters. For instance, if you set "
+"``ds=${yyyymmdd}`` in Schedule -> Parameter in DataWorks, you can use the"
+" following code to obtain the value of ``ds``:"
+
+#: ../../source/platform-d2.rst:100
+msgid "print('ds=' + args['ds']))"
+msgstr ""
+
+#: ../../source/platform-d2.rst:104
+msgid "ds=20161116"
+msgstr ""
+
+#: ../../source/platform-d2.rst:108
+msgid "特别地，如果要获取名为 ``ds=${yyyymmdd}`` 的分区，则可以使用"
+msgstr ""
+"Specifically, if you want to get the table partition ``ds=${yyyymmdd}``, "
+"the code below can be used:"
+
+#: ../../source/platform-d2.rst:110
+msgid "o.get_table('table_name').get_partition('ds=' + args['ds'])"
+msgstr ""
+
+#: ../../source/platform-d2.rst:115
+msgid "受限功能"
+msgstr "Feature restriction"
+
+#: ../../source/platform-d2.rst:117
+msgid "由于缺少 matplotlib 等包，所以如下功能可能会受限。"
+msgstr ""
+"DataWorks does not have the ``matplotlib`` library. Therefore, the "
+"following features may be restricted:"
+
+#: ../../source/platform-d2.rst:119
+msgid "DataFrame的plot函数"
+msgstr "DataFrame plot function"
+
+#: ../../source/platform-d2.rst:121
+msgid ""
+"DataFrame 自定义函数需要提交到 MaxCompute 执行。由于 Python 沙箱的原因，第三方库只支持所有的纯 Python 库以及"
+" Numpy， 因此不能直接使用 Pandas，可参考:ref:`第三方库支持 <third_party_library>` "
+"上传和使用所需的库。DataWorks 中执行的非自定义函数代码可以使用平台预装的 Numpy 和 "
+"Pandas。其他带有二进制代码的三方包不被支持。"
+msgstr ""
+"Custom functions in DataFrame need to be submitted to MaxCompute before "
+"execution. Due to Python sandbox, third-party libraries which are written"
+" in pure Python or referencing merely numpy can be executed without "
+"uploading auxiliary libraries. Other libraries including Pandas should be"
+" uploaded before use. See :ref:`support for third-party libraries "
+"<third_party_library>` for more details. Code outside custom functions "
+"can use pre-installed Numpy and Pandas in DataWorks. Other third-party "
+"libraries with binary codes are not supported currently."
+
+#: ../../source/platform-d2.rst:125
+msgid ""
+"由于兼容性的原因，在 DataWorks 中，`options.tunnel.use_instance_tunnel` 默认设置为 "
+"False。如果需要全局开启 Instance Tunnel， 需要手动将该值设置为 True。"
+msgstr ""
+"For compatibility reasons, `options.tunnel.use_instance_tunnel` in "
+"DataWorks is set to False by default. To enable Instance Tunnel globally,"
+" you need to manually set `options.tunnel.use_instance_tunnel` to True."
+
+#: ../../source/platform-d2.rst:128
+msgid "由于实现的原因，Python 的 atexit 包不被支持，请使用 try - finally 结构实现相关功能。"
+msgstr ""
+"For implementation reasons, the Python atexit package is not supported. "
+"You need to use the try - finally structure to implement related "
+"features."
+
+#: ../../source/platform-d2.rst:131
+msgid "使用限制"
+msgstr "Usage restrictions"
+
+#: ../../source/platform-d2.rst:133
+msgid ""
+"在 DataWorks 上使用 PyODPS，为了防止对 DataWorks 的 gateway 造成压力，对内存和 CPU 都有限制。这个限制由"
+" DataWorks 统一管理。"
+msgstr ""
+"To avoid pressure on the gateway of DataWorks when running PyODPS in "
+"DataWorks, the CPU and memory usage is restricted. DataWorks provides "
+"central management for this restriction."
+
+#: ../../source/platform-d2.rst:135
+msgid "如果看到 **Got killed** ，即内存使用超限，进程被 kill。因此，尽量避免本地的数据操作。"
+msgstr ""
+"If the system displays **Got killed**, this indicates an out-of-memory "
+"error and that the process has been terminated. Therefore, we do not "
+"recommend starting local data operations."
+
+#: ../../source/platform-d2.rst:137
+msgid "通过 PyODPS 起的 SQL 和 DataFrame 任务（除 to_pandas) 不受此限制。"
+msgstr ""
+"However, the preceding restriction does not work on SQL and DataFrame "
+"tasks (except to_pandas) that are initiated by PyODPS."
+
