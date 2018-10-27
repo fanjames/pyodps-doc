@@ -76,7 +76,7 @@ author = u'Qin Xuye'
 # built documents.
 #
 # The short X.Y version.
-version = '0.7.19'
+__version__= '0.7.19'
 # The full version, including alpha/beta/rc tags.
 release = __version__
 
